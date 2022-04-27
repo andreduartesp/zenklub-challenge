@@ -1,7 +1,7 @@
 import fetchWithTimeout from "../../../shared/fetchWithTimeout"
 
 const getFeelings = async (): Promise<feeling[]> => {
-  return await fetchWithTimeout<feeling[]>("https://run.mocky.io/v3/40b90967-c822-4a31-9e89-314ae2c3f4c6", {})
+  return await fetchWithTimeout<feeling[]>("https://run.mocky.io/v3/284d8d79-6389-47bf-96d7-77c0b308504a", {})
 }
 
-export { getFeelings }
+export default { getFeelings }

@@ -1,24 +1,52 @@
-import { View } from 'react-native';
+import { View, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import FeelingBubble from './components/FeelingBubble';
 
 interface IProps {
-  feelings: feeling[]
+  feelings: feelingScore[]
+  onPress: (id: number) => void
 }
 
-export default function Page({ feelings }: IProps) {
+export default function Page({ feelings, onPress }: IProps) {
+  if (!feelings.length) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size='large' color='#0000ff' />
+      </View>
+    )
+  }
+
   return (
-    <View>
-      {
-        feelings.map((feeling, index) => {
-          return (
-            <FeelingBubble
-              key={`FeelingBubble-${index}`}
-              feeling={feeling}
-              size={`${(index % 5) * 25}`}
-            />
-          )
-        })
-      }
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        {
+          feelings.map((feeling, index) => {
+            return (
+              <FeelingBubble
+                key={`FeelingBubble-${index}`}
+                feeling={feeling}
+                onPress={() => onPress(feeling.id)}
+              />
+            )
+          })
+        }
+      </View>
+    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#825eeb',
+  },
+  loading: {
+    height: '100%',
+    backgroundColor: '#825eeb',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+})

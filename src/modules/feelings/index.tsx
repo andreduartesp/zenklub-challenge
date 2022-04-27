@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react'
-import { getFeelings } from './repository/feelingsRepository'
+import { View } from 'react-native'
+import FeelingViewModel from './viewModel/FeelingsViewModel'
 import Page from './view/Page'
 
-export default function App() {
-  const [feelings, setFellings] = useState<feeling[]>([])
+interface IProps {
+  navigation: any
+}
+
+export default function Feelings({ navigation }: IProps) {
+  const [feelings, setFellings] = useState<feelingScore[]>([])
+  const viewModel = new FeelingViewModel(navigation)
 
   useEffect(() => {
-    getFeelings().then(newFeelings => setFellings(newFeelings))
+    viewModel.getFeelings().then(newFeelings => setFellings(newFeelings))
   }, [])
 
   return (
-    <Page feelings={feelings} />
+    <Page feelings={feelings} onPress={viewModel.navigateToFeelingScore} />
   );
 }

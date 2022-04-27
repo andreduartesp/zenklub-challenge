@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface IProps {
-  feeling: feeling
-  size: string
+  feeling: feelingScore
+  onPress: () => void
 }
 
 interface ISizes {
@@ -21,30 +21,39 @@ const sizes: ISizes = {
   '100': 100,
 }
 
-export default function FeelingBubble({ feeling, size }: IProps) {
-  const dimension: number = sizes[size as keyof ISizes]
+export default function FeelingBubble({ feeling, onPress }: IProps) {
+  const dimension: number = sizes[feeling.score as keyof ISizes]
   return (
-    <View style={
-      [
-        styles.container,
-        { width: dimension, height: dimension, borderRadius: dimension / 2 }
-      ]
-    }>
-      <Text style={{ fontSize: dimension / 3 }}>
-        {feeling.emoji}
-      </Text>
-      <Text style={[styles.label, { fontSize: dimension / 4 }]}>
-        {feeling.feeling}
-      </Text>
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={
+        [
+          styles.container,
+          {
+            width: dimension,
+            height: dimension,
+            borderRadius: dimension / 2,
+            shadowRadius: dimension / 2,
+          }
+        ]
+      }>
+        <Text style={{ fontSize: dimension / 3 }}>
+          {feeling.emoji}
+        </Text>
+        <Text style={[styles.label, { fontSize: dimension / 4 }]}>
+          {feeling.feeling}
+        </Text>
+      </View>
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(90, 90, 90, .3)',
+    backgroundColor: 'rgba(255, 255, 255, .2)',
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 5,
+    padding: 5,
   },
   label: {
     color: '#ffff',
