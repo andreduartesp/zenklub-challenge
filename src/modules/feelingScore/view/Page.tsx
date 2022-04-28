@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useState } from 'react'
+import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from 'react-native'
+import Slider from '@react-native-community/slider'
 
 interface IProps {
   feeling: feelingScore
@@ -16,6 +17,7 @@ const translation = {
 
 export default function Page({ feeling, back }: IProps) {
   const [intensity, setIntensity] = useState(feeling.score)
+  const left = (parseInt(intensity) * (Dimensions.get('window').width - 60) / 100 - 15);
 
   return (
     <View style={styles.container}>
@@ -27,6 +29,20 @@ export default function Page({ feeling, back }: IProps) {
         </Text>
         <Text style={styles.subtitle}>Chose the intensity of your feeling</Text>
       </View>
+      <Text style={[styles.slideUpLabel, { left: left, fontSize: 26 }]}>
+        {intensity}%
+      </Text>
+      <Slider
+        minimumValue={0}
+        maximumValue={100}
+        step={25}
+        thumbTintColor={"#825eeb"}
+        onSlidingComplete={value => setIntensity(`${value}`)}
+        value={parseInt(intensity)}
+      />
+      <Text style={[styles.slideDownLabel, { left: left }]}>
+        {translation[intensity as keyof typeof translation]}
+      </Text>
       <View style={styles.body}>
         <TouchableOpacity onPress={() => back()}>
           <View style={styles.button}>
@@ -45,7 +61,7 @@ const styles = StyleSheet.create({
   head: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    paddingTop: 20,
     flex: 1,
   },
   emoji: {
@@ -83,5 +99,15 @@ const styles = StyleSheet.create({
     color: '#825eeb',
     fontSize: 18,
     fontWeight: '700',
+  },
+  slideUpLabel: {
+    width: 70,
+    textAlign: 'center',
+    fontSize: 26,
+    color: '#825eeb',
+    fontWeight: '700',
+  },
+  slideDownLabel: {
+
   }
 })
