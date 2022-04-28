@@ -5,6 +5,7 @@ import Slider from '@react-native-community/slider'
 interface IProps {
   feeling: feelingScore
   back: () => void
+  saveFeeling: (id: number, score: string) => void
 }
 
 const translation = {
@@ -15,7 +16,7 @@ const translation = {
   "100": 'Extremely',
 }
 
-export default function Page({ feeling, back }: IProps) {
+export default function Page({ feeling, back, saveFeeling }: IProps) {
   const [intensity, setIntensity] = useState(feeling.score)
   const left = (parseInt(intensity) * (Dimensions.get('window').width - 60) / 100 - 15);
 
@@ -37,7 +38,10 @@ export default function Page({ feeling, back }: IProps) {
         maximumValue={100}
         step={25}
         thumbTintColor={"#825eeb"}
-        onSlidingComplete={value => setIntensity(`${value}`)}
+        onSlidingComplete={value => {
+          setIntensity(`${value}`)
+          saveFeeling(feeling.id, `${value}`)
+        }}
         value={parseInt(intensity)}
       />
       <Text style={[styles.slideDownLabel, { left: left }]}>

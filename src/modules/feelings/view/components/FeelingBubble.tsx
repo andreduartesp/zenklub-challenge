@@ -39,7 +39,7 @@ export default function FeelingBubble({ feeling, onPress }: IProps) {
         <Text style={{ fontSize: dimension / 3 }}>
           {feeling.emoji}
         </Text>
-        <Text style={[styles.label, { fontSize: dimension / 4 }]}>
+        <Text style={[styles.label, { fontSize: dimension / 7 }]}>
           {feeling.feeling}
         </Text>
       </View>

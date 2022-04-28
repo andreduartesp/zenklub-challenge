@@ -11,6 +11,10 @@ export default function FeelingScore({ navigation, route }: IProps) {
   const viewModel = new FeelingScoreViewModel(navigation)
 
   return (
-    <Page feeling={feeling} back={() => viewModel.navigateBack()} />
+    <Page
+      feeling={feeling}
+      back={viewModel.navigateBack}
+      saveFeeling={viewModel.saveFeelingScore}
+    />
   );
 }
