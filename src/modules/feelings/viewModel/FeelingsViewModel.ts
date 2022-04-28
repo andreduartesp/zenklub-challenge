@@ -20,8 +20,8 @@ class FeelingsViewModel {
     })
   }
 
-  navigateToFeelingScore = (id: number) => {
-    this.navigation.navigate('FeelingScore')
+  navigateToFeelingScore = (feeling: feeling) => {
+    this.navigation.navigate('FeelingScore', { feeling })
   }
 }
 

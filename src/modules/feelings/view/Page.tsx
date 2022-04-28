@@ -3,7 +3,7 @@ import FeelingBubble from './components/FeelingBubble';
 
 interface IProps {
   feelings: feelingScore[]
-  onPress: (id: number) => void
+  onPress: (feeling: feeling) => void
 }
 
 export default function Page({ feelings, onPress }: IProps) {
@@ -24,7 +24,7 @@ export default function Page({ feelings, onPress }: IProps) {
               <FeelingBubble
                 key={`FeelingBubble-${index}`}
                 feeling={feeling}
-                onPress={() => onPress(feeling.id)}
+                onPress={() => onPress(feeling)}
               />
             )
           })
